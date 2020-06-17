@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://suer:suer123@flash-card-xzfy5.mongodb.net/flashcard?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://suer:suer123@flash-card-xzfy5.mongodb.net/flashcard?retryWrites=true&w=majority",
+  "jwtSecret": "Secret"
 }
