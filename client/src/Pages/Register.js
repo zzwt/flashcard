@@ -30,14 +30,12 @@ const Register = (props) => {
   const onSubmit = (event) => {
     event.preventDefault();
     if (!user.name || !user.email || !user.password || !user.passwordConfirm) {
-      return setAlert([{ msg: "Please fill in all the fields" }]);
+      return setAlert({ msg: "Please fill in all the fields" });
     }
     if (user.password !== user.passwordConfirm) {
-      return setAlert([
-        {
-          msg: "Password confirmation is not correct. Please check...",
-        },
-      ]);
+      return setAlert({
+        msg: "Password confirmation is not correct. Please check...",
+      });
     }
     registerUser(user);
   };

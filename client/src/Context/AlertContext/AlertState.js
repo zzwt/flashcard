@@ -10,8 +10,12 @@ const AlertState = (props) => {
 
   // Actions
   const setAlert = (errors, timeout = 3000) => {
-    // let idsToRemove = [];
-    console.log(errors);
+    if (!errors.errors) {
+      errors = [errors];
+    } else {
+      errors = errors.errors;
+    }
+
     return errors.map((error) => {
       const id = uuidv4();
       error.id = id;
@@ -27,25 +31,6 @@ const AlertState = (props) => {
       }, timeout);
       return id;
     });
-
-    // dispatch({
-    //   type: SET_ALERT,
-    //   payload: errors.map((error) => {
-    //     const id = uuidv4();
-    //     idsToRemove.push(id);
-    //     error.id = id;
-    //     return error;
-    //   }),
-    // });
-
-    // return idsToRemove.map((id) => {
-    //   return setTimeout(() => {
-    //     dispatch({
-    //       type: REMOVE_ALERT,
-    //       payload: id,
-    //     });
-    //   }, timeout);
-    // });
   };
 
   return (
