@@ -29,9 +29,6 @@ const Register = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (!user.name || !user.email || !user.password || !user.passwordConfirm) {
-      return setAlert({ msg: "Please fill in all the fields" });
-    }
     if (user.password !== user.passwordConfirm) {
       return setAlert({
         msg: "Password confirmation is not correct. Please check...",
@@ -54,6 +51,7 @@ const Register = (props) => {
                 placeholder="Username"
                 value={user.name}
                 onChange={onChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -64,6 +62,7 @@ const Register = (props) => {
                 placeholder="Email"
                 value={user.email}
                 onChange={onChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -74,6 +73,7 @@ const Register = (props) => {
                 placeholder="Password"
                 value={user.password}
                 onChange={onChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -84,6 +84,7 @@ const Register = (props) => {
                 placeholder="Password Confirm"
                 value={user.passwordConfirm}
                 onChange={onChange}
+                required
               />
             </div>
             <input type="submit" className="btn btn-success btn-block" />
