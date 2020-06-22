@@ -2,10 +2,12 @@ import React, { useEffect, useContext } from "react";
 import AuthContext from "../Context/AuthContext/AuthContext";
 import { requireAuth } from "../utils";
 export const Protected = (props) => {
-  const authContext = useContext(AuthContext);
+  const { loadUser, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
-    authContext.loadUser();
+    if (!isAuthenticated) {
+      loadUser();
+    }
     // eslint-disable-next-line
   }, []);
   return (

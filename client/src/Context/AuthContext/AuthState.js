@@ -9,6 +9,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } from "../Types";
 import axios from "axios";
 import { setAuthHeader } from "../../utils";
@@ -86,6 +87,12 @@ const AuthState = (props) => {
     }
   };
 
+  const logoutUser = () => {
+    dispatch({
+      type: LOGOUT,
+    });
+  };
+
   // Clear Errors
   const clearErrors = async () => {
     dispatch({
@@ -95,7 +102,14 @@ const AuthState = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ ...state, registerUser, clearErrors, loadUser, loginUser }}
+      value={{
+        ...state,
+        registerUser,
+        clearErrors,
+        loadUser,
+        loginUser,
+        logoutUser,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

@@ -6,6 +6,7 @@ const {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } = require("../Types");
 
 const AuthReducer = (state, action) => {
@@ -23,6 +24,7 @@ const AuthReducer = (state, action) => {
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
+    case LOGOUT:
       localStorage.removeItem("token");
       return {
         ...state,
