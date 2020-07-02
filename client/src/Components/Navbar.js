@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
 import AuthContext from "../Context/AuthContext/AuthContext";
-import { withRouter, matchPath } from "react-router";
+import { withRouter } from "react-router";
 
 export const Navbar = (props) => {
   const { logoutUser, isAuthenticated, currentUser } = useContext(AuthContext);
@@ -18,7 +18,7 @@ export const Navbar = (props) => {
             Hello, {currentUser.name}
           </li>
           <li className="nav-item">
-            <Link className="nav-link" onClick={onLogout}>
+            <Link className="nav-link" onClick={onLogout} to="/">
               Logout
             </Link>
           </li>
@@ -28,8 +28,6 @@ export const Navbar = (props) => {
   };
 
   const guestLinks = () => {
-    const { url } = props.match;
-    console.log(matchPath);
     return (
       <Fragment>
         <li className="nav-item">

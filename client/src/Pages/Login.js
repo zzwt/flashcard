@@ -14,7 +14,7 @@ const Login = (props) => {
   const { setAlert } = useContext(AlertContext);
 
   useEffect(() => {
-    if (isAuthenticated) props.history.push("/protected");
+    if (isAuthenticated) props.history.push("/dashboard");
 
     if (errors) {
       setAlert(errors);
