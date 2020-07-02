@@ -41,7 +41,7 @@ const Decks = () => {
     <SidebarLayout>
       <div className="container bg-light">
         <button className="btn btn-dark">
-          <Link to="/new-deck">Add New</Link>
+          <Link to="/save-deck">Add New</Link>
         </button>
         <div className="row">{renderDecks()}</div>
       </div>

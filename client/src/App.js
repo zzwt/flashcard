@@ -31,7 +31,7 @@ function App() {
               <Route path="/dashboard" component={Dashboard} exact />
               <Route path="/dashboard/decks" component={Decks} exact />
               <Route path="/dashboard/subjects" component={Subjects} exact />
-              <Route path="/new-deck" component={DeckForm} />
+              <Route path="/save-deck" component={DeckForm} />
             </Switch>
           </div>
         </Router>
