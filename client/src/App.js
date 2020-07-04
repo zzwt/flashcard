@@ -8,6 +8,7 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import AuthState from "./Context/AuthContext/AuthState";
 import AlertState from "./Context/AlertContext/AlertState";
+import DeckState from "./Context/DeckContext/DeckState";
 import Dashboard from "./Pages/Dashboard";
 import { setAuthHeader } from "./utils";
 import Decks from "./Pages/Decks";
@@ -20,21 +21,23 @@ function App() {
   return (
     <AlertState>
       <AuthState>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <Alerts />
-            <Switch>
-              <Route path="/" component={Home} exact />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
-              <Route path="/dashboard" component={Dashboard} exact />
-              <Route path="/dashboard/decks" component={Decks} exact />
-              <Route path="/dashboard/subjects" component={Subjects} exact />
-              <Route path="/save-deck/:id?" component={DeckForm} />
-            </Switch>
-          </div>
-        </Router>
+        <DeckState>
+          <Router>
+            <div className="App">
+              <Navbar />
+              <Alerts />
+              <Switch>
+                <Route path="/" component={Home} exact />
+                <Route path="/register" component={Register} />
+                <Route path="/login" component={Login} />
+                <Route path="/dashboard" component={Dashboard} exact />
+                <Route path="/dashboard/decks" component={Decks} exact />
+                <Route path="/dashboard/subjects" component={Subjects} exact />
+                <Route path="/save-deck/:id?" component={DeckForm} />
+              </Switch>
+            </div>
+          </Router>
+        </DeckState>
       </AuthState>
     </AlertState>
   );

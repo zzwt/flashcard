@@ -2,46 +2,51 @@ import React, { useState, useEffect, useContext } from "react";
 import SidebarLayout from "../Components/SidebarLayout";
 import { requireAuth } from "../utils";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import AlertContext from "../Context/AlertContext/AlertContext";
+import DeckContext from "../Context/DeckContext/DeckContext";
 
 const Decks = () => {
   const { setAlert } = useContext(AlertContext);
-  const [decks, setDecks] = useState([]);
+  const {
+    deckState: { decks, errors },
+    getDecks,
+    clearErrors,
+  } = useContext(DeckContext);
+  // const [decks, setDecks] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      // You can await here
-      try {
-        const response = await axios.get("/api/decks");
-        console.log(response.data);
-        setDecks(response.data);
-      } catch (err) {
-        setAlert(err.response.data);
-      }
-    }
-    fetchData();
+    getDecks();
   }, []);
 
+  useEffect(() => {
+    if (errors) {
+      setAlert(errors);
+      clearErrors();
+    }
+  }, [errors]);
+
   const renderDecks = () => {
-    return decks.map((deck) => (
-      <div className="col-md-6 col-lg-4">
-        <div className="card">
-          <div className="card-body">
-            <div className="card-title">
-              {deck.title}{" "}
-              <span>
-                <Link to={`/save-deck/${deck._id}`}>
-                  <button className="btn-primary">Edit</button>
-                </Link>
-              </span>
+    return (
+      decks &&
+      decks.map((deck) => (
+        <div key={deck._id} className="col-md-6 col-lg-4">
+          <div className="card">
+            <div className="card-body">
+              <div className="card-title">
+                {deck.title}{" "}
+                <span>
+                  <Link to={`/save-deck/${deck._id}`}>
+                    <button className="btn-primary">Edit</button>
+                  </Link>
+                </span>
+              </div>
+              <hr></hr>
+              <div className="card-text">{deck.description}</div>
             </div>
-            <hr></hr>
-            <div className="card-text">{deck.description}</div>
           </div>
         </div>
-      </div>
-    ));
+      ))
+    );
   };
 
   return (
