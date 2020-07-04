@@ -4,6 +4,7 @@ import SidebarLayout from "./SidebarLayout";
 import NewCardModal from "./NewCardModal";
 import ReactPaginate from "react-paginate";
 import AlertContext from "../Context/AlertContext/AlertContext";
+import DeckContext from "../Context/DeckContext/DeckContext";
 import { marginPagesDisplayed, pageRangeDisplayed, perPage } from "../config";
 import axios from "axios";
 
@@ -15,21 +16,27 @@ export default function DeckForm(props) {
     []
   );
   const { setAlert } = useContext(AlertContext);
+  const {
+    deckState: { errors },
+    createDeck,
+    clearErrors,
+  } = useContext(DeckContext);
+
   const onDelete = (event) => {
     console.log("clicked");
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await axios.post("/api/decks", {
-        ...fields,
-        cards,
-      });
-      props.history.push("/dashboard/decks");
-    } catch (err) {
-      setAlert(err.response.data);
+    await createDeck({
+      ...fields,
+      cards,
+    });
+    if (errors) {
+      setAlert(errors);
+      clearErrors();
     }
+    props.history.push("/dashboard/decks");
   };
 
   const onChange = (event) => {

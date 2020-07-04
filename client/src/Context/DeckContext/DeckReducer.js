@@ -1,4 +1,9 @@
-const { GET_DECKS, GET_DECKS_FAIL, CLEAR_ERRORS } = require("../Types");
+const {
+  GET_DECKS,
+  GET_DECKS_FAIL,
+  CLEAR_ERRORS,
+  CREATE_DECK_FAIL,
+} = require("../Types");
 
 const DeckReducer = (state, action) => {
   switch (action.type) {
@@ -8,6 +13,7 @@ const DeckReducer = (state, action) => {
         decks: action.payload,
       };
     case GET_DECKS_FAIL:
+    case CREATE_DECK_FAIL:
       return {
         ...state,
         errors: action.payload,
