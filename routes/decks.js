@@ -13,10 +13,10 @@ router.get("/", auth, async (req, res) => {
       date: -1,
       deleted: false,
     });
-    res.json(decks);
+    return res.json(decks);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ msg: "Server Error" });
   }
 });
 
@@ -41,10 +41,10 @@ router.post(
       });
 
       const deck = await newDeck.save();
-      res.json(deck);
+      return res.json(deck);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ msg: "Server Error" });
+      return res.status(500).json({ msg: "Server Error" });
     }
   }
 );
@@ -69,10 +69,10 @@ router.patch(
       );
 
       // const deck = await newDeck.save();
-      res.json(updateDeck);
+      return res.json(updateDeck);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ msg: "Server Error" });
+      return res.status(500).json({ msg: "Server Error" });
     }
   }
 );
