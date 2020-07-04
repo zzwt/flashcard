@@ -28,7 +28,14 @@ const Decks = () => {
       <div className="col-md-6 col-lg-4">
         <div className="card">
           <div className="card-body">
-            <div className="card-title">{deck.title}</div>
+            <div className="card-title">
+              {deck.title}{" "}
+              <span>
+                <Link to={`/save-deck/${deck._id}`}>
+                  <button className="btn-primary">Edit</button>
+                </Link>
+              </span>
+            </div>
             <hr></hr>
             <div className="card-text">{deck.description}</div>
           </div>
