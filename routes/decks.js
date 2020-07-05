@@ -25,11 +25,12 @@ router.get("/", auth, async (req, res) => {
 // @access  Private
 router.get("/:id", auth, async (req, res) => {
   try {
-    const deck = await Deck.find({
+    const deck = await Deck.findOne({
       user: req.user.id,
       _id: mongoose.mongo.ObjectId(req.params.id),
     });
-    return res.json(deck);
+    if (deck) return res.json(deck);
+    return res.status(400).json({ msg: "Deck Not Find" });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ msg: "Server Error" });
