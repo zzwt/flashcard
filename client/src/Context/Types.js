@@ -13,3 +13,4 @@ export const REMOVE_ALERT = "REMOVE_ALERT";
 export const GET_DECKS = "GET_DECKS";
 export const GET_DECKS_FAIL = "GET_DECKS_FAIL";
 export const CREATE_DECK_FAIL = "CREATE_DECK_FAIL";
+export const GET_DECK_FAIL = "GET_DECK_FAIL";

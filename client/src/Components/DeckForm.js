@@ -6,7 +6,6 @@ import ReactPaginate from "react-paginate";
 import AlertContext from "../Context/AlertContext/AlertContext";
 import DeckContext from "../Context/DeckContext/DeckContext";
 import { marginPagesDisplayed, pageRangeDisplayed, perPage } from "../config";
-import axios from "axios";
 
 export default function DeckForm(props) {
   const [fields, setFields] = useState({ title: "", description: "" });
@@ -19,8 +18,30 @@ export default function DeckForm(props) {
   const {
     deckState: { errors },
     createDeck,
+    getDeck,
     clearErrors,
   } = useContext(DeckContext);
+
+  useEffect(() => {
+    const { id } = props.match.params;
+    if (id) {
+      getDeck(id)
+        .then(({ title, description, cards }) => {
+          setFields({ title, description });
+          setCards(cards);
+        })
+        .catch((errors) => {
+          setAlert(errors);
+          clearErrors();
+          props.history.push("/dashboard/decks");
+        });
+    }
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(Math.ceil(cards.length / perPage) - 1);
+  }, [cards]);
 
   const onDelete = (event) => {
     console.log("clicked");
@@ -47,10 +68,6 @@ export default function DeckForm(props) {
   const addCard = (card) => {
     setCards([...cards, card]);
   };
-
-  useEffect(() => {
-    setCurrentPage(Math.ceil(cards.length / perPage) - 1);
-  }, [cards]);
 
   const renderCards = () => {
     const offset = currentPage * perPage;
@@ -167,7 +184,7 @@ export default function DeckForm(props) {
             />
           )}
           <button type="submit" className="btn btn-primary btn-block">
-            Create New Deck
+            {props.match.params.id ? "Save Deck" : "Create New Deck"}
           </button>
         </form>
       </div>

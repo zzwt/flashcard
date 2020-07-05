@@ -3,6 +3,7 @@ const {
   GET_DECKS_FAIL,
   CLEAR_ERRORS,
   CREATE_DECK_FAIL,
+  GET_DECK_FAIL,
 } = require("../Types");
 
 const DeckReducer = (state, action) => {
@@ -14,6 +15,7 @@ const DeckReducer = (state, action) => {
       };
     case GET_DECKS_FAIL:
     case CREATE_DECK_FAIL:
+    case GET_DECK_FAIL:
       return {
         ...state,
         errors: action.payload,

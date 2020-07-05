@@ -7,6 +7,7 @@ const {
   GET_DECKS_FAIL,
   CLEAR_ERRORS,
   CREATE_DECK_FAIL,
+  GET_DECK_FAIL,
 } = require("../Types");
 // import { v4 as uuidv4 } from "uuid";
 const DeckState = (props) => {
@@ -45,6 +46,21 @@ const DeckState = (props) => {
     }
   };
 
+  const getDeck = async (id) => {
+    const inDeck = state.decks && state.decks.find((deck) => deck._id === id);
+    if (inDeck) return Promise.resolve(inDeck);
+    try {
+      const response = await axios.get(`/api/decks/${id}`);
+      return response.data;
+    } catch (err) {
+      dispatch({
+        type: GET_DECK_FAIL,
+        payload: err.response.data,
+      });
+      return Promise.reject(err.response.data);
+    }
+  };
+
   const clearErrors = async () => {
     dispatch({
       type: CLEAR_ERRORS,
@@ -53,7 +69,7 @@ const DeckState = (props) => {
 
   return (
     <DeckContext.Provider
-      value={{ deckState: state, getDecks, clearErrors, createDeck }}
+      value={{ deckState: state, getDecks, clearErrors, createDeck, getDeck }}
     >
       {props.children}
     </DeckContext.Provider>
