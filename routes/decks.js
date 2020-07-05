@@ -107,10 +107,10 @@ router.delete("/:id", auth, async (req, res) => {
         deleted: true,
       }
     );
-    res.json(deletedDeck);
+    return res.json(deletedDeck);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ msg: "Server Error" });
   }
 });
 
