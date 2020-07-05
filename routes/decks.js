@@ -9,9 +9,8 @@ const mongoose = require("mongoose");
 // @access  Private
 router.get("/", auth, async (req, res) => {
   try {
-    const decks = await Deck.find({ user: req.user.id }).sort({
+    const decks = await Deck.find({ user: req.user.id, deleted: false }).sort({
       date: -1,
-      deleted: false,
     });
     return res.json(decks);
   } catch (err) {
