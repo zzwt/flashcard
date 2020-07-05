@@ -20,6 +20,22 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// @route   GET api/decks/:id
+// @desc    Get a deck detail for a user
+// @access  Private
+router.get("/:id", auth, async (req, res) => {
+  try {
+    const deck = await Deck.find({
+      user: req.user.id,
+      _id: mongoose.mongo.ObjectId(req.params.id),
+    });
+    return res.json(deck);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: "Server Error" });
+  }
+});
+
 // @route   POST api/decks
 // @desc    Add a new deck
 // @access  Private
