@@ -43,10 +43,6 @@ export default function DeckForm(props) {
     setCurrentPage(Math.ceil(cards.length / perPage) - 1);
   }, [cards]);
 
-  const onDelete = (event) => {
-    console.log("clicked");
-  };
-
   const onSubmit = async (event) => {
     event.preventDefault();
     await createDeck({

@@ -11,6 +11,7 @@ const Decks = () => {
     deckState: { decks, errors },
     getDecks,
     clearErrors,
+    deleteDeck,
   } = useContext(DeckContext);
   // const [decks, setDecks] = useState([]);
 
@@ -25,6 +26,14 @@ const Decks = () => {
     }
   }, [errors]);
 
+  const onDelete = async (id) => {
+    await deleteDeck(id);
+    if (errors) {
+      setAlert(errors);
+      clearErrors();
+    }
+  };
+
   const renderDecks = () => {
     return (
       decks &&
@@ -38,6 +47,12 @@ const Decks = () => {
                   <Link to={`/save-deck/${deck._id}`}>
                     <button className="btn-primary">Edit</button>
                   </Link>
+                  <button
+                    className="btn-primary"
+                    onClick={() => onDelete(deck._id)}
+                  >
+                    Delete
+                  </button>
                 </span>
               </div>
               <hr></hr>

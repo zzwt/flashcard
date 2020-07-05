@@ -8,6 +8,8 @@ const {
   CLEAR_ERRORS,
   CREATE_DECK_FAIL,
   GET_DECK_FAIL,
+  DELETE_DECK_FAIL,
+  DELETE_DECK,
 } = require("../Types");
 // import { v4 as uuidv4 } from "uuid";
 const DeckState = (props) => {
@@ -61,6 +63,24 @@ const DeckState = (props) => {
     }
   };
 
+  const deleteDeck = async (id) => {
+    console.log(id);
+    try {
+      const response = await axios.delete(`/api/decks/${id}`);
+      if (response.data.ok === 1) {
+        dispatch({
+          type: DELETE_DECK,
+          payload: state.decks.filter((deck) => deck._id !== id),
+        });
+      }
+    } catch (err) {
+      dispatch({
+        type: DELETE_DECK_FAIL,
+        payload: err.response.data,
+      });
+    }
+  };
+
   const clearErrors = async () => {
     dispatch({
       type: CLEAR_ERRORS,
@@ -69,7 +89,14 @@ const DeckState = (props) => {
 
   return (
     <DeckContext.Provider
-      value={{ deckState: state, getDecks, clearErrors, createDeck, getDeck }}
+      value={{
+        deckState: state,
+        getDecks,
+        clearErrors,
+        createDeck,
+        getDeck,
+        deleteDeck,
+      }}
     >
       {props.children}
     </DeckContext.Provider>
