@@ -44,7 +44,7 @@ const Decks = () => {
               <div className="card-title">
                 {deck.title}{" "}
                 <span>
-                  <Link to={`/save-deck/${deck._id}`}>
+                  <Link to={`/save-decks/${deck._id}`}>
                     <button className="btn-primary">Edit</button>
                   </Link>
                   <button
@@ -68,7 +68,7 @@ const Decks = () => {
     <SidebarLayout>
       <div className="container bg-light">
         <button className="btn btn-dark">
-          <Link to="/save-deck">Add New</Link>
+          <Link to="/save-decks">Add New</Link>
         </button>
         <div className="row">{renderDecks()}</div>
       </div>

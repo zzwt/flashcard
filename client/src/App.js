@@ -33,7 +33,7 @@ function App() {
                 <Route path="/dashboard" component={Dashboard} exact />
                 <Route path="/dashboard/decks" component={Decks} exact />
                 <Route path="/dashboard/subjects" component={Subjects} exact />
-                <Route path="/save-deck/:id?" component={DeckForm} />
+                <Route path="/save-decks/:id?" component={DeckForm} />
               </Switch>
             </div>
           </Router>
