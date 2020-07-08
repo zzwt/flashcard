@@ -3,14 +3,15 @@ import SidebarLayout from "../Components/SidebarLayout";
 import { requireAuth } from "../utils";
 import { Link } from "react-router-dom";
 
-const Subjects = () => {
+const DeckGroups = () => {
   return (
     <SidebarLayout>
-      <button className="btn btn-dark">
-        <Link to="/subjects-new">Add New</Link>
-      </button>
+      {/* <button className="btn btn-dark">
+        <Link to="/save-d">Add New</Link>
+      </button> */}
+      Deck Groups
     </SidebarLayout>
   );
 };
 
-export default requireAuth(Subjects);
+export default requireAuth(DeckGroups);

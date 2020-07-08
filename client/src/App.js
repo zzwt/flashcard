@@ -12,7 +12,7 @@ import DeckState from "./Context/DeckContext/DeckState";
 import Dashboard from "./Pages/Dashboard";
 import { setAuthHeader } from "./utils";
 import Decks from "./Pages/Decks";
-import Subjects from "./Pages/Subjects";
+import DeckGroups from "./Pages/DeckGroups";
 import DeckForm from "./Components/DeckForm";
 
 if (localStorage.getItem("token")) setAuthHeader(localStorage.getItem("token"));
@@ -32,7 +32,11 @@ function App() {
                 <Route path="/login" component={Login} />
                 <Route path="/dashboard" component={Dashboard} exact />
                 <Route path="/dashboard/decks" component={Decks} exact />
-                <Route path="/dashboard/subjects" component={Subjects} exact />
+                <Route
+                  path="/dashboard/deck-groups"
+                  component={DeckGroups}
+                  exact
+                />
                 <Route path="/save-decks/:id?" component={DeckForm} />
               </Switch>
             </div>

@@ -29,8 +29,8 @@ const SidebarLayout = (props) => {
             >
               <i className="fas fa-layer-group"></i> Decks
             </NavLink>
-            <NavLink className="nav-link" to="/dashboard/subjects">
-              <i className="fas fa-clipboard-list"></i> Subjects
+            <NavLink className="nav-link" to="/dashboard/deck-groups">
+              <i className="fas fa-clipboard-list"></i> Deck Groups
             </NavLink>
           </div>
         </div>
