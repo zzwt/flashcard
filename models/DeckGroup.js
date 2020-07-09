@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DeckSchema = require("./Deck");
+// const DeckSchema = require("./Deck");
 
 const DeckGroupSchema = mongoose.Schema({
   user: {
