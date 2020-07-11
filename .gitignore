@@ -17,6 +17,7 @@
 /client/.env.test.local
 /client/.env.production.local
 /design
+.vscode
 
 npm-debug.log*
 yarn-debug.log*

@@ -24,7 +24,7 @@ const SidebarLayout = (props) => {
               className="nav-link"
               to="/dashboard/decks"
               isActive={(match, location) => {
-                return location.pathname.includes("deck");
+                return location.pathname.includes("decks");
               }}
             >
               <i className="fas fa-layer-group"></i> Decks

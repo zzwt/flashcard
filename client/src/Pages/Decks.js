@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import SidebarLayout from "../Components/SidebarLayout";
 import { requireAuth } from "../utils";
 import { Link } from "react-router-dom";
@@ -13,10 +13,10 @@ const Decks = () => {
     clearErrors,
     deleteDeck,
   } = useContext(DeckContext);
-  // const [decks, setDecks] = useState([]);
 
   useEffect(() => {
     getDecks();
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const Decks = () => {
       setAlert(errors);
       clearErrors();
     }
+    //eslint-disable-next-line
   }, [errors]);
 
   const onDelete = async (id) => {

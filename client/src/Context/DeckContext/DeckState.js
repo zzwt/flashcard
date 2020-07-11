@@ -10,12 +10,17 @@ const {
   GET_DECK_FAIL,
   DELETE_DECK_FAIL,
   DELETE_DECK,
+  GET_DECK_GROUPS,
+  GET_DECK_GROUPS_FAIL,
+  CREATE_DECK_GROUP,
+  CREATE_DECK_GROUP_FAIL,
 } = require("../Types");
-// import { v4 as uuidv4 } from "uuid";
+
 const DeckState = (props) => {
   const initialState = {
     decks: null,
     errors: null,
+    deckGroups: null,
   };
 
   const [state, dispatch] = useReducer(DeckReducer, initialState);
@@ -28,8 +33,8 @@ const DeckState = (props) => {
         type: GET_DECKS,
         payload: response.data,
       });
+      return response.data;
     } catch (err) {
-      console.log(err);
       dispatch({
         type: GET_DECKS_FAIL,
         payload: err.response.data,
@@ -64,7 +69,6 @@ const DeckState = (props) => {
   };
 
   const deleteDeck = async (id) => {
-    console.log(id);
     try {
       const response = await axios.delete(`/api/decks/${id}`);
       if (response.data.ok === 1) {
@@ -76,6 +80,53 @@ const DeckState = (props) => {
     } catch (err) {
       dispatch({
         type: DELETE_DECK_FAIL,
+        payload: err.response.data,
+      });
+    }
+  };
+
+  const getDeckGroups = async () => {
+    let decks = state.decks;
+
+    try {
+      if (!decks) {
+        decks = await getDecks();
+      }
+
+      const responseDeckGroups = await axios.get(`/api/deck-groups`);
+      const payload = responseDeckGroups.data.map((deckGroup) => {
+        deckGroup.decks = deckGroup.decks.map((deckId) =>
+          decks.find((deck) => deck._id === deckId)
+        );
+        return deckGroup;
+      });
+      dispatch({
+        type: GET_DECK_GROUPS,
+        payload,
+      });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: GET_DECK_GROUPS_FAIL,
+        payload: err.response.data,
+      });
+    }
+  };
+
+  const createDeckGroup = async (newDeckGroup) => {
+    try {
+      const newDeckGroupResponse = await axios.post(
+        "/api/deck-groups",
+        newDeckGroup
+      );
+      dispatch({
+        type: CREATE_DECK_GROUP,
+        payload: newDeckGroupResponse.data,
+      });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: CREATE_DECK_GROUP_FAIL,
         payload: err.response.data,
       });
     }
@@ -96,6 +147,8 @@ const DeckState = (props) => {
         createDeck,
         getDeck,
         deleteDeck,
+        getDeckGroups,
+        createDeckGroup,
       }}
     >
       {props.children}
