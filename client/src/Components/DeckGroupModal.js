@@ -4,7 +4,6 @@ const DeckGroupModal = (props) => {
   const [deckGroup, setDeckGroup] = useState({
     title: "",
     description: "",
-    // decks: props.selectedDecks,
   });
   const [searchKey, setSearchKey] = useState("");
   const [allDecks, setAllDecks] = useState(null);
@@ -25,7 +24,6 @@ const DeckGroupModal = (props) => {
   };
 
   const onDeckSelected = (event) => {
-    console.log(event.target.id);
     setAllDecks(
       allDecks.map((deck) => {
         if (deck._id === event.target.id) deck.checked = !deck.checked;
