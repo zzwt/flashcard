@@ -8,9 +8,16 @@ const DeckGroupModal = (props) => {
   const [searchKey, setSearchKey] = useState("");
   const [allDecks, setAllDecks] = useState(null);
   useEffect(() => {
+    const { selectedDeckGroup } = props;
+    if (selectedDeckGroup && !props.new)
+      setDeckGroup({
+        title: selectedDeckGroup.title,
+        description: selectedDeckGroup.description,
+      });
+
     setDecksField();
     //eslint-disable-next-line
-  }, [props.allDecks]);
+  }, [props.allDecks, props.selectedDeckGroup]);
 
   const onChange = (event) => {
     const { name, value } = event.target;
@@ -26,7 +33,8 @@ const DeckGroupModal = (props) => {
   const onDeckSelected = (event) => {
     setAllDecks(
       allDecks.map((deck) => {
-        if (deck._id === event.target.id) deck.checked = !deck.checked;
+        if (deck._id === event.target.id)
+          deck.defaultChecked = !deck.defaultChecked;
         return deck;
       })
     );
@@ -34,11 +42,24 @@ const DeckGroupModal = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (props.new) {
+      props.onSubmit({
+        ...deckGroup,
+        decks: allDecks
+          .filter((deck) => deck.defaultChecked)
+          .map((deck) => deck._id),
+      });
+    } else {
+      props.onSubmit({
+        ...props.selectedDeckGroup,
+        ...deckGroup,
+        decks: allDecks
+          .filter((deck) => deck.defaultChecked)
+          .map((deck) => deck._id),
+      });
+      props.clearSelectedDeckGroup();
+    }
 
-    props.onSubmit({
-      ...deckGroup,
-      decks: allDecks.filter((deck) => deck.checked).map((deck) => deck._id),
-    });
     clearFormFields();
   };
 
@@ -49,9 +70,13 @@ const DeckGroupModal = (props) => {
 
   const setDecksField = () => {
     if (props.allDecks) {
-      const temp = props.allDecks.map((deck) => ({
-        ...deck,
-        checked: props.selectedDecks.map((deck) => deck._id).includes(deck._id),
+      const temp = props.allDecks.map((deckInAllDecks) => ({
+        ...deckInAllDecks,
+        defaultChecked:
+          props.selectedDeckGroup &&
+          props.selectedDeckGroup.decks
+            .map((deck) => deck._id)
+            .includes(deckInAllDecks._id),
       }));
       setAllDecks(temp);
     }
@@ -70,8 +95,8 @@ const DeckGroupModal = (props) => {
               type="checkbox"
               value={deck._id}
               id={deck._id}
-              onChange={onDeckSelected}
-              checked={deck.checked}
+              onClick={onDeckSelected}
+              defaultChecked={deck.defaultChecked}
             />
             <label className="form-check-label" htmlFor={deck._id}>
               {deck.title}
@@ -91,7 +116,10 @@ const DeckGroupModal = (props) => {
             <button
               className="close"
               data-dismiss="modal"
-              onClick={() => clearFormFields()}
+              onClick={() => {
+                props.clearSelectedDeckGroup();
+                clearFormFields();
+              }}
             >
               &times;
             </button>

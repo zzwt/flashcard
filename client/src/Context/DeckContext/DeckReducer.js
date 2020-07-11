@@ -12,20 +12,19 @@ const {
   CREATE_DECK_GROUP_FAIL,
   DELETE_DECK_GROUP,
   DELETE_DECK_GROUP_FAIL,
+  UPDATE_DECK_GROUP,
+  UPDATE_DECK_GROUP_FAIL,
 } = require("../Types");
 
 const DeckReducer = (state, action) => {
   switch (action.type) {
     case GET_DECKS:
-      return {
-        ...state,
-        decks: action.payload,
-      };
     case DELETE_DECK:
       return {
         ...state,
         decks: action.payload,
       };
+    case UPDATE_DECK_GROUP:
     case DELETE_DECK_GROUP:
       return {
         ...state,
@@ -43,6 +42,7 @@ const DeckReducer = (state, action) => {
     case GET_DECK_GROUPS_FAIL:
     case CREATE_DECK_GROUP_FAIL:
     case DELETE_DECK_GROUP_FAIL:
+    case UPDATE_DECK_GROUP_FAIL:
       return {
         ...state,
         errors: action.payload,

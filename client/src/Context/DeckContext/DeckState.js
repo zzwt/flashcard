@@ -16,6 +16,8 @@ const {
   CREATE_DECK_GROUP_FAIL,
   DELETE_DECK_GROUP,
   DELETE_DECK_GROUP_FAIL,
+  UPDATE_DECK_GROUP,
+  UPDATE_DECK_GROUP_FAIL,
 } = require("../Types");
 
 const DeckState = (props) => {
@@ -152,6 +154,24 @@ const DeckState = (props) => {
     }
   };
 
+  const updateDeckGroup = async (newDeckGroup) => {
+    try {
+      await axios.patch(`/api/deck-groups/${newDeckGroup._id}`, newDeckGroup);
+      dispatch({
+        type: UPDATE_DECK_GROUP,
+        payload: state.deckGroups.map((deckGroup) =>
+          deckGroup._id === newDeckGroup._id ? newDeckGroup : deckGroup
+        ),
+      });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: UPDATE_DECK_GROUP_FAIL,
+        payload: err.response.data,
+      });
+    }
+  };
+
   const clearErrors = async () => {
     dispatch({
       type: CLEAR_ERRORS,
@@ -170,6 +190,7 @@ const DeckState = (props) => {
         getDeckGroups,
         createDeckGroup,
         deleteDeckGroup,
+        updateDeckGroup,
       }}
     >
       {props.children}

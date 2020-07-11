@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SidebarLayout from "../Components/SidebarLayout";
 import { requireAuth } from "../utils";
 import DeckGroupModal from "../Components/DeckGroupModal";
@@ -12,9 +12,12 @@ const DeckGroups = () => {
     createDeckGroup,
     clearErrors,
     deleteDeckGroup,
+    updateDeckGroup,
   } = useContext(DeckContext);
 
   const { setAlert } = useContext(AlertContext);
+
+  const [selectedDeckGroup, setSelectedDeckGroup] = useState(null);
 
   useEffect(() => {
     getDeckGroups();
@@ -28,6 +31,14 @@ const DeckGroups = () => {
     }
   }, [errors]);
 
+  const onEdit = (deckGroup) => {
+    setSelectedDeckGroup(deckGroup);
+  };
+
+  const clearSelectedDeckGroup = () => {
+    setSelectedDeckGroup(null);
+  };
+
   const renderDeckGroups = () => {
     return deckGroups.map((deckGroup) => (
       <div key={deckGroup._id} className="col-md-6 col-lg-4">
@@ -35,6 +46,16 @@ const DeckGroups = () => {
           <div className="card-body">
             <div className="card-title">
               {deckGroup.title}
+              <button
+                className="btn btn-success"
+                data-toggle="modal"
+                data-target="#editDeckGroupModal"
+                onClick={() => {
+                  onEdit(deckGroup);
+                }}
+              >
+                Edit
+              </button>
               <button
                 className="btn btn-success"
                 onClick={() => {
@@ -69,16 +90,18 @@ const DeckGroups = () => {
         {deckGroups && renderDeckGroups()}
         <DeckGroupModal
           allDecks={decks}
-          selectedDecks={[]}
+          selectedDeckGroup={selectedDeckGroup}
           id="newDeckGroupModal"
           new={true}
           onSubmit={createDeckGroup}
         />
         <DeckGroupModal
           allDecks={decks}
-          selectedDecks={[]}
+          selectedDeckGroup={selectedDeckGroup}
           id="editDeckGroupModal"
           new={false}
+          onSubmit={updateDeckGroup}
+          clearSelectedDeckGroup={clearSelectedDeckGroup}
         />
       </div>
     </SidebarLayout>
