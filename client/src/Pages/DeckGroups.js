@@ -11,6 +11,7 @@ const DeckGroups = () => {
     getDeckGroups,
     createDeckGroup,
     clearErrors,
+    deleteDeckGroup,
   } = useContext(DeckContext);
 
   const { setAlert } = useContext(AlertContext);
@@ -32,7 +33,17 @@ const DeckGroups = () => {
       <div key={deckGroup._id} className="col-md-6 col-lg-4">
         <div className="card">
           <div className="card-body">
-            <div className="card-title">{deckGroup.title} </div>
+            <div className="card-title">
+              {deckGroup.title}
+              <button
+                className="btn btn-success"
+                onClick={() => {
+                  deleteDeckGroup(deckGroup._id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
             <hr></hr>
             <div className="card-text">{deckGroup.description}</div>
           </div>

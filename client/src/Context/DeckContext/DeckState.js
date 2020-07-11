@@ -14,6 +14,8 @@ const {
   GET_DECK_GROUPS_FAIL,
   CREATE_DECK_GROUP,
   CREATE_DECK_GROUP_FAIL,
+  DELETE_DECK_GROUP,
+  DELETE_DECK_GROUP_FAIL,
 } = require("../Types");
 
 const DeckState = (props) => {
@@ -132,6 +134,24 @@ const DeckState = (props) => {
     }
   };
 
+  const deleteDeckGroup = async (id) => {
+    try {
+      const response = await axios.delete(`/api/deck-groups/${id}`);
+      if (response.data.ok === 1) {
+        dispatch({
+          type: DELETE_DECK_GROUP,
+          payload: state.deckGroups.filter((deckGroup) => deckGroup._id !== id),
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: DELETE_DECK_GROUP_FAIL,
+        payload: err.response.data,
+      });
+    }
+  };
+
   const clearErrors = async () => {
     dispatch({
       type: CLEAR_ERRORS,
@@ -149,6 +169,7 @@ const DeckState = (props) => {
         deleteDeck,
         getDeckGroups,
         createDeckGroup,
+        deleteDeckGroup,
       }}
     >
       {props.children}
