@@ -7,6 +7,7 @@ const {
   GET_DECKS_FAIL,
   CLEAR_ERRORS,
   CREATE_DECK_FAIL,
+  UPDATE_DECK_FAIL,
   GET_DECK_FAIL,
   DELETE_DECK_FAIL,
   DELETE_DECK,
@@ -53,6 +54,17 @@ const DeckState = (props) => {
     } catch (err) {
       dispatch({
         type: CREATE_DECK_FAIL,
+        payload: err.response.data,
+      });
+    }
+  };
+
+  const updateDeck = async (updatedDeck) => {
+    try {
+      await axios.patch(`/api/decks/${updatedDeck.id}`, updatedDeck);
+    } catch (err) {
+      dispatch({
+        type: UPDATE_DECK_FAIL,
         payload: err.response.data,
       });
     }
@@ -203,6 +215,7 @@ const DeckState = (props) => {
         getDecks,
         clearErrors,
         createDeck,
+        updateDeck,
         getDeck,
         deleteDeck,
         getDeckGroups,

@@ -19,6 +19,7 @@ export default function DeckForm(props) {
     deckState: { errors },
     createDeck,
     getDeck,
+    updateDeck,
     clearErrors,
   } = useContext(DeckContext);
 
@@ -44,11 +45,20 @@ export default function DeckForm(props) {
   }, [cards]);
 
   const onSubmit = async (event) => {
+    const { id } = props.match.params;
     event.preventDefault();
-    await createDeck({
-      ...fields,
-      cards,
-    });
+    if (!id) {
+      await createDeck({
+        ...fields,
+        cards,
+      });
+    } else {
+      await updateDeck({
+        ...fields,
+        id,
+        cards,
+      });
+    }
     if (errors) {
       setAlert(errors);
       clearErrors();
