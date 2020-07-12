@@ -18,6 +18,7 @@ const {
   DELETE_DECK_GROUP_FAIL,
   UPDATE_DECK_GROUP,
   UPDATE_DECK_GROUP_FAIL,
+  POPULATE_DECKS_FAIL,
 } = require("../Types");
 
 const DeckState = (props) => {
@@ -89,21 +90,35 @@ const DeckState = (props) => {
     }
   };
 
-  const getDeckGroups = async () => {
-    let decks = state.decks;
+  const populateDecksForDeckGroup = async (deckGroup) => {
+    if (!deckGroup) return null;
 
+    let decks = state.decks;
     try {
       if (!decks) {
         decks = await getDecks();
       }
-
-      const responseDeckGroups = await axios.get(`/api/deck-groups`);
-      const payload = responseDeckGroups.data.map((deckGroup) => {
-        deckGroup.decks = deckGroup.decks.map((deckId) =>
-          decks.find((deck) => deck._id === deckId)
-        );
-        return deckGroup;
+      deckGroup.decks = deckGroup.decks.map((deckId) =>
+        decks.find((deck) => deck._id === deckId)
+      );
+      return deckGroup;
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: POPULATE_DECKS_FAIL,
+        payload: err.response.data,
       });
+    }
+  };
+
+  const getDeckGroups = async () => {
+    try {
+      const responseDeckGroups = await axios.get(`/api/deck-groups`);
+      const payload = await Promise.all(
+        responseDeckGroups.data.map(async (deckGroup) => {
+          return await populateDecksForDeckGroup(deckGroup);
+        })
+      );
       dispatch({
         type: GET_DECK_GROUPS,
         payload,
@@ -123,9 +138,12 @@ const DeckState = (props) => {
         "/api/deck-groups",
         newDeckGroup
       );
+      const payload = await populateDecksForDeckGroup(
+        newDeckGroupResponse.data
+      );
       dispatch({
         type: CREATE_DECK_GROUP,
-        payload: newDeckGroupResponse.data,
+        payload: payload,
       });
     } catch (err) {
       console.log(err);

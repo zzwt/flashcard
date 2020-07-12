@@ -33,8 +33,7 @@ const DeckGroupModal = (props) => {
   const onDeckSelected = (event) => {
     setAllDecks(
       allDecks.map((deck) => {
-        if (deck._id === event.target.id)
-          deck.defaultChecked = !deck.defaultChecked;
+        if (deck._id === event.target.id) deck.checked = !deck.checked;
         return deck;
       })
     );
@@ -45,17 +44,13 @@ const DeckGroupModal = (props) => {
     if (props.new) {
       props.onSubmit({
         ...deckGroup,
-        decks: allDecks
-          .filter((deck) => deck.defaultChecked)
-          .map((deck) => deck._id),
+        decks: allDecks.filter((deck) => deck.checked).map((deck) => deck._id),
       });
     } else {
       props.onSubmit({
         ...props.selectedDeckGroup,
         ...deckGroup,
-        decks: allDecks
-          .filter((deck) => deck.defaultChecked)
-          .map((deck) => deck._id),
+        decks: allDecks.filter((deck) => deck.checked),
       });
       props.clearSelectedDeckGroup();
     }
@@ -72,8 +67,8 @@ const DeckGroupModal = (props) => {
     if (props.allDecks) {
       const temp = props.allDecks.map((deckInAllDecks) => ({
         ...deckInAllDecks,
-        defaultChecked:
-          props.selectedDeckGroup &&
+        checked:
+          !!props.selectedDeckGroup &&
           props.selectedDeckGroup.decks
             .map((deck) => deck._id)
             .includes(deckInAllDecks._id),
@@ -93,10 +88,10 @@ const DeckGroupModal = (props) => {
             <input
               className="form-check-input"
               type="checkbox"
-              value={deck._id}
+              value={deck.checked}
               id={deck._id}
-              onClick={onDeckSelected}
-              defaultChecked={deck.defaultChecked}
+              onChange={onDeckSelected}
+              checked={deck.checked}
             />
             <label className="form-check-label" htmlFor={deck._id}>
               {deck.title}
@@ -117,7 +112,7 @@ const DeckGroupModal = (props) => {
               className="close"
               data-dismiss="modal"
               onClick={() => {
-                props.clearSelectedDeckGroup();
+                if (!props.new) props.clearSelectedDeckGroup();
                 clearFormFields();
               }}
             >

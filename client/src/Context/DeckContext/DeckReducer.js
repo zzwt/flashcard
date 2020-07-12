@@ -14,6 +14,7 @@ const {
   DELETE_DECK_GROUP_FAIL,
   UPDATE_DECK_GROUP,
   UPDATE_DECK_GROUP_FAIL,
+  POPULATE_DECKS_FAIL,
 } = require("../Types");
 
 const DeckReducer = (state, action) => {
@@ -43,6 +44,7 @@ const DeckReducer = (state, action) => {
     case CREATE_DECK_GROUP_FAIL:
     case DELETE_DECK_GROUP_FAIL:
     case UPDATE_DECK_GROUP_FAIL:
+    case POPULATE_DECKS_FAIL:
       return {
         ...state,
         errors: action.payload,
