@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import SidebarLayout from "./SidebarLayout";
-import NewCardModal from "./NewCardModal";
+import CardModal from "./CardModal";
 import ReactPaginate from "react-paginate";
 import AlertContext from "../Context/AlertContext/AlertContext";
 import DeckContext from "../Context/DeckContext/DeckContext";
@@ -14,6 +14,8 @@ export default function DeckForm(props) {
     // Array.from({ length: 19 }, (x, i) => ({ question: i + 1, answer: i + 1 }))
     []
   );
+  const [selection, setSelection] = useState(null);
+
   const { setAlert } = useContext(AlertContext);
   const {
     deckState: { errors },
@@ -75,6 +77,22 @@ export default function DeckForm(props) {
     setCards([...cards, card]);
   };
 
+  const deleteCard = (removeIndex) => {
+    setCards(cards.filter((card, index) => index !== removeIndex));
+  };
+
+  const editCard = (updatedCard, index) => {
+    setCards(cards.map((card, i) => (i === index ? updatedCard : card)));
+    setSelection(null);
+  };
+
+  const onSelectCard = (selectedCard, index) => {
+    setSelection({ selectedCard, index });
+  };
+
+  const onModalClose = () => {
+    setSelection(null);
+  };
   const renderCards = () => {
     const offset = currentPage * perPage;
     return (
@@ -94,16 +112,31 @@ export default function DeckForm(props) {
                 <div className="col-5">{card.answer}</div>
                 <div className="col-2 text-center">
                   <a href="#" className="text-muted">
-                    <i className="fas fa-pen"></i>
+                    <i
+                      className="fas fa-pen"
+                      data-toggle="modal"
+                      data-target="#editCardModal"
+                      onClick={() => onSelectCard(card, index + offset)}
+                    ></i>
                   </a>
                   <a href="#" className="text-muted">
-                    <i className="fas fa-trash-alt ml-3"></i>
+                    <i
+                      className="fas fa-trash-alt ml-3"
+                      onClick={() => deleteCard(index + offset)}
+                    ></i>
                   </a>
                 </div>
               </div>
             </li>
           );
         })}
+        <CardModal
+          editCard={editCard}
+          new={false}
+          selection={selection}
+          id="editCardModal"
+          onModalClose={onModalClose}
+        />
       </ul>
     );
   };
@@ -161,7 +194,7 @@ export default function DeckForm(props) {
                   New Card
                 </button>
               </div>
-              <NewCardModal addCard={addCard} />
+              <CardModal addCard={addCard} new={true} id="newCardModal" />
             </div>
 
             {renderCards()}

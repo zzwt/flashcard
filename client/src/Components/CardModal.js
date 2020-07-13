@@ -1,19 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const NewCardModal = (props) => {
+const CardModal = (props) => {
   const [card, setCard] = useState({ question: "", answer: "" });
+
+  useEffect(() => {
+    if (props.selection) {
+      const {
+        selectedCard: { question, answer },
+      } = props.selection;
+      setCard({ question: question, answer: answer });
+    }
+  }, [props.selection]);
 
   const onChange = (event) => {
     event.preventDefault();
     setCard({ ...card, [event.target.name]: event.target.value });
   };
 
+  const onSubmit = () => {
+    if (props.new) {
+      props.addCard(card);
+    } else {
+      props.editCard(card, props.selection.index);
+      props.onModalClose();
+    }
+    setCard({ question: "", answer: "" });
+  };
   return (
-    <div className="modal" id="newCardModal">
+    <div className="modal" id={props.id}>
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">New Card</h5>
+            <h5 className="modal-title">
+              {props.new ? "New Card" : "Edit Card"}
+            </h5>
             <button className="close" data-dismiss="modal">
               &times;
             </button>
@@ -49,11 +69,10 @@ const NewCardModal = (props) => {
               className="btn btn-primary"
               data-dismiss="modal"
               onClick={() => {
-                props.addCard(card);
-                setCard({ question: "", answer: "" });
+                onSubmit();
               }}
             >
-              Add
+              {props.new ? "Add" : "Edit"}
             </button>
           </div>
         </div>
@@ -62,4 +81,4 @@ const NewCardModal = (props) => {
   );
 };
 
-export default NewCardModal;
+export default CardModal;
