@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import AuthContext from "../Context/AuthContext/AuthContext";
+import { AuthContext } from "Context";
 
 const SidebarLayout = (props) => {
   const { loadUser, isAuthenticated } = useContext(AuthContext);

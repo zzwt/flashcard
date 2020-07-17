@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import AuthContext from "../Context/AuthContext/AuthContext";
-import AlertContext from "../Context/AlertContext/AlertContext";
+import { AuthContext, AlertContext } from "Context";
 
 const Login = (props) => {
   const [user, setUser] = useState({

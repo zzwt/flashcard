@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import DeckContext from "./DeckContext";
 import DeckReducer from "./DeckReducer";
 import axios from "axios";
-const {
+import {
   GET_DECKS,
   GET_DECKS_FAIL,
   CLEAR_ERRORS,
@@ -20,7 +20,7 @@ const {
   UPDATE_DECK_GROUP,
   UPDATE_DECK_GROUP_FAIL,
   POPULATE_DECKS_FAIL,
-} = require("../Types");
+} from "Context";
 
 const DeckState = (props) => {
   const initialState = {

@@ -1,4 +1,4 @@
-const {
+import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   CLEAR_ERRORS,
@@ -7,7 +7,7 @@ const {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} = require("../Types");
+} from "Context";
 
 const AuthReducer = (state, action) => {
   switch (action.type) {

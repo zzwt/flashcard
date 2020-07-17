@@ -1,4 +1,4 @@
-const {
+import {
   GET_DECKS,
   GET_DECKS_FAIL,
   CLEAR_ERRORS,
@@ -16,7 +16,7 @@ const {
   UPDATE_DECK_GROUP,
   UPDATE_DECK_GROUP_FAIL,
   POPULATE_DECKS_FAIL,
-} = require("../Types");
+} from "Context";
 
 const DeckReducer = (state, action) => {
   switch (action.type) {

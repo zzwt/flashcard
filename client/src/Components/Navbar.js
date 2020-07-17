@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
-import AuthContext from "../Context/AuthContext/AuthContext";
+import { AuthContext } from "Context";
 import { withRouter } from "react-router";
 
 export const Navbar = (props) => {

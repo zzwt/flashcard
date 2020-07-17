@@ -1,19 +1,11 @@
 import React from "react";
-import Home from "./Pages/Home";
-import Navbar from "./Components/Navbar";
-import Alerts from "./Components/Alerts";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Home, DeckGroups, Decks, Dashboard, Login, Register } from "Pages";
+import { Navbar, Alerts, DeckForm } from "Components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Register from "./Pages/Register";
-import Login from "./Pages/Login";
-import AuthState from "./Context/AuthContext/AuthState";
-import AlertState from "./Context/AlertContext/AlertState";
-import DeckState from "./Context/DeckContext/DeckState";
-import Dashboard from "./Pages/Dashboard";
-import { setAuthHeader } from "./utils";
-import Decks from "./Pages/Decks";
-import DeckGroups from "./Pages/DeckGroups";
-import DeckForm from "./Components/DeckForm";
+import { AuthState, AlertState, DeckState } from "Context";
+import { setAuthHeader } from "utils";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 if (localStorage.getItem("token")) setAuthHeader(localStorage.getItem("token"));
 

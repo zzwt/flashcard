@@ -1,6 +1,7 @@
 import axios from "axios";
-import AuthContext from "../Context/AuthContext/AuthContext";
 import React, { useContext } from "react";
+import { AuthContext } from "Context";
+
 // import { Redirect } from "react-router-dom";
 export const setAuthHeader = (token) => {
   if (token) {

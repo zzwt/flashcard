@@ -1,6 +1,6 @@
-import SidebarLayout from "../Components/SidebarLayout";
+import { SidebarLayout } from "Components";
 import React from "react";
-import { requireAuth } from "../utils";
+import { requireAuth } from "utils";
 
 export const Dashboard = (props) => {
   return (

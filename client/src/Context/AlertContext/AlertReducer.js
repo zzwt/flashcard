@@ -1,4 +1,4 @@
-const { SET_ALERT, REMOVE_ALERT } = require("../Types");
+import { SET_ALERT, REMOVE_ALERT } from "Context";
 
 const AlertReducer = (state, action) => {
   switch (action.type) {

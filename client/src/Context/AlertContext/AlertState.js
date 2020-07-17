@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import AlertContext from "./AlertContext";
 import AlertReducer from "./AlertReducer";
-import { SET_ALERT, REMOVE_ALERT } from "../Types";
+import { SET_ALERT, REMOVE_ALERT } from "Context";
 import { v4 as uuidv4 } from "uuid";
 const AlertState = (props) => {
   const initialState = [];

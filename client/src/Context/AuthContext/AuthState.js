@@ -10,9 +10,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from "../Types";
+} from "Context";
 import axios from "axios";
-import { setAuthHeader } from "../../utils";
+import { setAuthHeader } from "utils";
 
 const AuthState = (props) => {
   const initialState = {

@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import SidebarLayout from "../Components/SidebarLayout";
-import { requireAuth } from "../utils";
-import DeckGroupModal from "../Components/DeckGroupModal";
-import DeckContext from "../Context/DeckContext/DeckContext.js";
-import AlertContext from "../Context/AlertContext/AlertContext.js";
+import { SidebarLayout, DeckGroupModal } from "Components";
+import { requireAuth } from "utils";
+import { DeckContext, AlertContext } from "Context";
 
 const DeckGroups = () => {
   const {

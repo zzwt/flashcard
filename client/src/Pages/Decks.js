@@ -1,9 +1,8 @@
 import React, { useEffect, useContext } from "react";
-import SidebarLayout from "../Components/SidebarLayout";
-import { requireAuth } from "../utils";
+import { SidebarLayout } from "Components";
+import { requireAuth } from "utils";
 import { Link } from "react-router-dom";
-import AlertContext from "../Context/AlertContext/AlertContext";
-import DeckContext from "../Context/DeckContext/DeckContext";
+import { AlertContext, DeckContext } from "Context";
 
 const Decks = () => {
   const { setAlert } = useContext(AlertContext);

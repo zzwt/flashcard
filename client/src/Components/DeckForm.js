@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import SidebarLayout from "./SidebarLayout";
 import CardModal from "./CardModal";
 import ReactPaginate from "react-paginate";
-import AlertContext from "../Context/AlertContext/AlertContext";
-import DeckContext from "../Context/DeckContext/DeckContext";
-import { marginPagesDisplayed, pageRangeDisplayed, perPage } from "../config";
+import { AlertContext, DeckContext } from "Context";
+import { marginPagesDisplayed, pageRangeDisplayed, perPage } from "configs";
 
 export default function DeckForm(props) {
   const [fields, setFields] = useState({ title: "", description: "" });
