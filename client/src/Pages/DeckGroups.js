@@ -27,6 +27,7 @@ const DeckGroups = () => {
       setAlert(errors);
       clearErrors();
     }
+    //eslint-disable-next-line
   }, [errors]);
 
   const onEdit = (deckGroup) => {

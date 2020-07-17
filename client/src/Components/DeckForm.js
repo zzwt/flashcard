@@ -110,7 +110,7 @@ export default function DeckForm(props) {
                 <div className="col-5">{card.question}</div>
                 <div className="col-5">{card.answer}</div>
                 <div className="col-2 text-center">
-                  <a href="#" className="text-muted">
+                  <a href="/#" className="text-muted">
                     <i
                       className="fas fa-pen"
                       data-toggle="modal"
@@ -118,7 +118,7 @@ export default function DeckForm(props) {
                       onClick={() => onSelectCard(card, index + offset)}
                     ></i>
                   </a>
-                  <a href="#" className="text-muted">
+                  <a href="/#" className="text-muted">
                     <i
                       className="fas fa-trash-alt ml-3"
                       onClick={() => deleteCard(index + offset)}
