@@ -1,18 +1,19 @@
-import React, { Suspense, useContext } from "react";
+import React, { Suspense, useContext, lazy } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { history } from "./history";
 import Spinner from "./Components/@vuexy/spinner/Loading-spinner";
 import { ContextLayout } from "Context";
-import { Home, DeckGroups, Decks, Dashboard, Login, Register } from "Pages";
+// import { Home, DeckGroups, Decks, Dashboard, Login, Register } from "Pages";
 import { DeckForm } from "Components";
 import { AuthContext } from "Context";
 
 // Route-based code splitting
-// const Home = lazy(() => import("./views/pages/Home"));
-
-// const Page2 = lazy(() => import("./views/pages/Page2"));
-
-// const login = lazy(() => import("./views/pages/authentication/login/Login"));
+const Home = lazy(() => import("./Pages/Home"));
+const DeckGroups = lazy(() => import("./Pages/DeckGroups"));
+const Decks = lazy(() => import("./Pages/Decks"));
+const Dashboard = lazy(() => import("./Pages/Dashboard"));
+const Login = lazy(() => import("./Pages/Login"));
+const Register = lazy(() => import("./Pages/Register"));
 
 // Set Layout and Component Using App Route
 const AppRoute = ({
