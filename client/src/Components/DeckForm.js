@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
-import SidebarLayout from "./SidebarLayout";
 import CardModal from "./CardModal";
 import ReactPaginate from "react-paginate";
 import { AlertContext, DeckContext } from "Context";
@@ -144,88 +143,86 @@ export default function DeckForm(props) {
   };
 
   return (
-    <SidebarLayout>
-      <div className="container py-5">
-        <Link to="/dashboard/decks">Back</Link>
-        <form onSubmit={onSubmit}>
-          <label htmlFor="title">Create a new deck</label>
-          <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              className="form-control"
-              name="title"
-              placeholder="Enter a title"
-              value={fields.title}
-              onChange={onChange}
-              required
-            />
-            <small className="form-text text-muted">
-              Like: Math - Chapter 2 - Series
-            </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              className="form-control"
-              name="description"
-              placeholder="Enter Description"
-              value={fields.description}
-              onChange={onChange}
-            />
-            <small className="form-text text-muted">
-              Like: This is exercise set for Series
-            </small>
-          </div>
-          <div>
-            <div className="row">
-              <div className="col-6">
-                <h4>Cards</h4>
-              </div>
-              <div className="col-6 text-right">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  data-toggle="modal"
-                  data-target="#newCardModal"
-                >
-                  New Card
-                </button>
-              </div>
-              <CardModal addCard={addCard} new={true} id="newCardModal" />
+    <Fragment>
+      <Link to="/dashboard/decks">Back</Link>
+      <form onSubmit={onSubmit}>
+        <label htmlFor="title">Create a new deck</label>
+        <div className="form-group">
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            className="form-control"
+            name="title"
+            placeholder="Enter a title"
+            value={fields.title}
+            onChange={onChange}
+            required
+          />
+          <small className="form-text text-muted">
+            Like: Math - Chapter 2 - Series
+          </small>
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            className="form-control"
+            name="description"
+            placeholder="Enter Description"
+            value={fields.description}
+            onChange={onChange}
+          />
+          <small className="form-text text-muted">
+            Like: This is exercise set for Series
+          </small>
+        </div>
+        <div>
+          <div className="row">
+            <div className="col-6">
+              <h4>Cards</h4>
             </div>
-
-            {renderCards()}
+            <div className="col-6 text-right">
+              <button
+                type="button"
+                className="btn btn-success"
+                data-toggle="modal"
+                data-target="#newCardModal"
+              >
+                New Card
+              </button>
+            </div>
+            <CardModal addCard={addCard} new={true} id="newCardModal" />
           </div>
-          {cards.length > perPage && (
-            <ReactPaginate
-              pageCount={Math.ceil(cards.length / perPage)}
-              marginPagesDisplayed={marginPagesDisplayed}
-              pageRangeDisplayed={pageRangeDisplayed}
-              forcePage={currentPage}
-              onPageChange={onPageChange}
-              previousLabel={"previous"}
-              nextLabel={"next"}
-              breakLabel={"..."}
-              containerClassName={"pagination justify-content-center"}
-              breakClassName={"page-item"}
-              breakLinkClassName={"page-link"}
-              previousClassName={"page-item"}
-              previousLinkClassName={"page-link"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              nextClassName={"page-item"}
-              nextLinkClassName={"page-link"}
-              activeClassName={"active"}
-              disabledClassName={"disabled"}
-            />
-          )}
-          <button type="submit" className="btn btn-primary btn-block">
-            {props.match.params.id ? "Save Deck" : "Create New Deck"}
-          </button>
-        </form>
-      </div>
-    </SidebarLayout>
+
+          {renderCards()}
+        </div>
+        {cards.length > perPage && (
+          <ReactPaginate
+            pageCount={Math.ceil(cards.length / perPage)}
+            marginPagesDisplayed={marginPagesDisplayed}
+            pageRangeDisplayed={pageRangeDisplayed}
+            forcePage={currentPage}
+            onPageChange={onPageChange}
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            containerClassName={"pagination justify-content-center"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            activeClassName={"active"}
+            disabledClassName={"disabled"}
+          />
+        )}
+        <button type="submit" className="btn btn-primary btn-block">
+          {props.match.params.id ? "Save Deck" : "Create New Deck"}
+        </button>
+      </form>
+    </Fragment>
   );
 }

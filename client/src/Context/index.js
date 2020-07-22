@@ -4,6 +4,7 @@ import AuthState from "./AuthContext/AuthState";
 import AuthContext from "./AuthContext/AuthContext";
 import DeckState from "./DeckContext/DeckState";
 import DeckContext from "./DeckContext/DeckContext";
+import { Layout, ContextLayout } from "./Layout";
 
 export * from "./Types";
 export {
@@ -13,4 +14,6 @@ export {
   AuthContext,
   DeckState,
   DeckContext,
+  Layout,
+  ContextLayout,
 };

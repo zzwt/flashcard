@@ -1,5 +1,4 @@
-import React, { useEffect, useContext } from "react";
-import { SidebarLayout } from "Components";
+import React, { useEffect, useContext, Fragment } from "react";
 import { requireAuth } from "utils";
 import { Link } from "react-router-dom";
 import { AlertContext, DeckContext } from "Context";
@@ -65,14 +64,12 @@ const Decks = () => {
   };
 
   return (
-    <SidebarLayout>
-      <div className="container bg-light">
-        <button className="btn btn-dark">
-          <Link to="/save-decks">Add New</Link>
-        </button>
-        <div className="row">{renderDecks()}</div>
-      </div>
-    </SidebarLayout>
+    <Fragment>
+      <button className="btn btn-dark">
+        <Link to="/save-decks">Add New</Link>
+      </button>
+      <div className="row">{renderDecks()}</div>
+    </Fragment>
   );
 };
 

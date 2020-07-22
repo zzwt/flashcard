@@ -21,6 +21,7 @@ const AuthState = (props) => {
     loading: true,
     token: localStorage.getItem("token") || null,
     errors: null,
+    role: "admin",
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -92,6 +93,10 @@ const AuthState = (props) => {
       type: LOGOUT,
     });
   };
+
+  // const changeRole = role => {
+  //   dispatch({ type: "CHANGE_ROLE", payload: role })
+  // }
 
   // Clear Errors
   const clearErrors = async () => {

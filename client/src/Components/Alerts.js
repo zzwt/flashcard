@@ -13,6 +13,8 @@ const Alerts = () => {
       );
     });
   };
-  return <div className="container mt-3">{renderAlerts()}</div>;
+  return alerts.length > 0 ? (
+    <div className="container mt-3">{renderAlerts()}</div>
+  ) : null;
 };
 export default Alerts;

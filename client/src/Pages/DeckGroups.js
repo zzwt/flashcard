@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SidebarLayout, DeckGroupModal } from "Components";
+import { DeckGroupModal } from "Components";
 import { requireAuth } from "utils";
 import { DeckContext, AlertContext } from "Context";
 
@@ -73,37 +73,35 @@ const DeckGroups = () => {
   };
 
   return (
-    <SidebarLayout>
-      <div className="row">
-        <div className="col-6">Deck Groups</div>
-        <div className="col-6 text-right">
-          <button
-            type="button"
-            className="btn btn-success"
-            data-toggle="modal"
-            data-target="#newDeckGroupModal"
-          >
-            New Deck Group
-          </button>
-        </div>
-        {deckGroups && renderDeckGroups()}
-        <DeckGroupModal
-          allDecks={decks}
-          selectedDeckGroup={selectedDeckGroup}
-          id="newDeckGroupModal"
-          new={true}
-          onSubmit={createDeckGroup}
-        />
-        <DeckGroupModal
-          allDecks={decks}
-          selectedDeckGroup={selectedDeckGroup}
-          id="editDeckGroupModal"
-          new={false}
-          onSubmit={updateDeckGroup}
-          clearSelectedDeckGroup={clearSelectedDeckGroup}
-        />
+    <div className="row">
+      <div className="col-6">Deck Groups</div>
+      <div className="col-6 text-right">
+        <button
+          type="button"
+          className="btn btn-success"
+          data-toggle="modal"
+          data-target="#newDeckGroupModal"
+        >
+          New Deck Group
+        </button>
       </div>
-    </SidebarLayout>
+      {deckGroups && renderDeckGroups()}
+      <DeckGroupModal
+        allDecks={decks}
+        selectedDeckGroup={selectedDeckGroup}
+        id="newDeckGroupModal"
+        new={true}
+        onSubmit={createDeckGroup}
+      />
+      <DeckGroupModal
+        allDecks={decks}
+        selectedDeckGroup={selectedDeckGroup}
+        id="editDeckGroupModal"
+        new={false}
+        onSubmit={updateDeckGroup}
+        clearSelectedDeckGroup={clearSelectedDeckGroup}
+      />
+    </div>
   );
 };
 
