@@ -27,6 +27,10 @@ const DeckSchema = mongoose.Schema({
           type: String,
           required: true,
         },
+        order: {
+          type: Number,
+          required: true,
+        },
         date: {
           type: Date,
           default: Date.now,

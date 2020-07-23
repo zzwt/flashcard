@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 router.get("/", auth, async (req, res) => {
   try {
     const decks = await Deck.find({ user: req.user.id, deleted: false }).sort({
-      date: -1,
+      order: "asc",
     });
     return res.json(decks);
   } catch (err) {
