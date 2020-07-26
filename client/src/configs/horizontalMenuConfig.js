@@ -17,6 +17,7 @@ const horizontalMenuConfig = [
     icon: <Icon.File size={20} />,
     permissions: ["admin", "editor"],
     navLink: "/dashboard/decks",
+    activeUrlContains: "decks",
   },
   {
     id: "deckGroups",

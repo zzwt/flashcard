@@ -43,7 +43,7 @@ const Decks = () => {
               <div className="card-title">
                 {deck.title}{" "}
                 <span>
-                  <Link to={`/save-decks/${deck._id}`}>
+                  <Link to={`/edit-decks/${deck._id}`}>
                     <button className="btn-primary">Edit</button>
                   </Link>
                   <button
@@ -66,7 +66,7 @@ const Decks = () => {
   return (
     <Fragment>
       <button className="btn btn-dark">
-        <Link to="/save-decks">Add New</Link>
+        <Link to="/new-decks">Add New</Link>
       </button>
       <div className="row">{renderDecks()}</div>
     </Fragment>

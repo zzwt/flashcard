@@ -253,7 +253,10 @@ class HorizontalSidebar extends React.Component {
       return (
         <li
           className={classnames("nav-item", {
-            active: this.state.activeParents.includes(item.id),
+            active:
+              this.state.activeParents.includes(item.id) ||
+              (item.activeUrlContains &&
+                this.props.activePath.includes(item.activeUrlContains)),
             hover: this.state.parentHover === item.id,
           })}
           key={item.id}

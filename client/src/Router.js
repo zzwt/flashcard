@@ -2,10 +2,13 @@ import React, { Suspense, useContext, lazy } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { history } from "./history";
 import Spinner from "./Components/@vuexy/spinner/Loading-spinner";
+import "./Components/@vuexy/rippleButton/RippleButton";
+
 import { ContextLayout } from "Context";
 // import { Home, DeckGroups, Decks, Dashboard, Login, Register } from "Pages";
 import { DeckForm } from "Components";
 import { AuthContext } from "Context";
+// import WizardBasic from "./Components/@vuexy/wizard/WizardBasic";
 
 // Route-based code splitting
 const Home = lazy(() => import("./Pages/Home"));
@@ -14,6 +17,7 @@ const Decks = lazy(() => import("./Pages/Decks"));
 const Dashboard = lazy(() => import("./Pages/Dashboard"));
 const Login = lazy(() => import("./Pages/Login"));
 const Register = lazy(() => import("./Pages/Register"));
+const DeckWizard = lazy(() => import("./Components/DeckWizard"));
 
 // Set Layout and Component Using App Route
 const AppRoute = ({
@@ -63,12 +67,13 @@ class AppRouter extends React.Component {
           <AppRoute path="/login" component={Login} fullLayout />
           <AppRoute path="/dashboard" component={Dashboard} exact />
           <AppRoute path="/dashboard/decks" component={Decks} exact />
+          <AppRoute path="/new-decks" component={DeckWizard} exact />
+          <AppRoute path="/edit-decks/:id?" component={DeckForm} exact />
           <AppRoute
             path="/dashboard/deck-groups"
             component={DeckGroups}
             exact
           />
-          <AppRoute path="/save-decks/:id?" component={DeckForm} />
         </Switch>
       </Router>
     );
